@@ -1,0 +1,167 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a API Docs written by json. This is Docs for Assigment 6",
+        "version": "1.0.0",
+        "title": "Travellog API",
+        "contact": {
+            "email": "17520279@gm.uit.edu.vn",
+            "name": "Duong Le Thanh Binh"
+        },
+        "servers": [
+            "http://localhost:4000"
+        ]
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "/"
+                ],
+                "summary": "Get response from main page",
+                "description": "Get response from main page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "We are at server"
+                    }
+                }
+            }
+        },
+        "/reviews": {
+            "get": {
+                "tags": [
+                    "/reviews"
+                ],
+                "summary": "Get response from reviews page",
+                "description": "Get response from reviews page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all json data"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "/reviews"
+                ],
+                "parameters": [
+                    {
+                        "name": "places",
+                        "in": "body",
+                        "description": "Place that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/places"
+                        }
+                    }
+                ],
+                "summary": "Post to mongodb data, the get response.",
+                "description": "Post to mongodb data, the get response.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get back json data"
+                    }
+                }
+            }
+        },
+        "/reviews/blogs": {
+            "get": {
+                "tags": [
+                    "/reviews/blogs"
+                ],
+                "summary": "Get response from blogs page",
+                "description": "Get response from blogs page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all json data"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "/reviews/blogs"
+                ],
+                "parameters": [
+                    {
+                        "name": "blogs",
+                        "in": "body",
+                        "description": "blogs that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/blogs"
+                        }
+                    }
+                ],
+                "summary": "Post to mongodb data, the get response.",
+                "description": "Post to mongodb data, the get response.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get back json data"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "places": {
+            "required": [
+                "name",
+                "image"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "blogs": {
+            "required": [
+                "name",
+                "title",
+                "content"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
