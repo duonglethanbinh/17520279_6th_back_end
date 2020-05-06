@@ -33,10 +33,10 @@
                 }
             }
         },
-        "/reviews": {
+        "/places": {
             "get": {
                 "tags": [
-                    "/reviews"
+                    "/places"
                 ],
                 "summary": "Get response from reviews page",
                 "description": "Get response from reviews page",
@@ -54,7 +54,7 @@
             },
             "post": {
                 "tags": [
-                    "/reviews"
+                    "/places"
                 ],
                 "parameters": [
                     {
@@ -81,10 +81,10 @@
                 }
             }
         },
-        "/reviews/blogs": {
+        "/blogs": {
             "get": {
                 "tags": [
-                    "/reviews/blogs"
+                    "/blogs"
                 ],
                 "summary": "Get response from blogs page",
                 "description": "Get response from blogs page",
@@ -102,7 +102,7 @@
             },
             "post": {
                 "tags": [
-                    "/reviews/blogs"
+                    "/blogs"
                 ],
                 "parameters": [
                     {
@@ -111,6 +111,54 @@
                         "description": "blogs that we want to create",
                         "schema": {
                             "$ref": "#/definitions/blogs"
+                        }
+                    }
+                ],
+                "summary": "Post to mongodb data, the get response.",
+                "description": "Post to mongodb data, the get response.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get back json data"
+                    }
+                }
+            }
+        },
+        "/contacts": {
+            "get": {
+                "tags": [
+                    "/contacts"
+                ],
+                "summary": "Get response from contacts page",
+                "description": "Get response from contacts page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all json data"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "/contacts"
+                ],
+                "parameters": [
+                    {
+                        "name": "contacts",
+                        "in": "body",
+                        "description": "blogs that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/contacts"
                         }
                     }
                 ],
@@ -159,6 +207,24 @@
                     "type": "string"
                 },
                 "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "contacts": {
+            "required": [
+                "name",
+                "email",
+                "message"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "message": {
                     "type": "string"
                 }
             }

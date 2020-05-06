@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const Reviewscontent = mongoose.Schema({
     name: String,
-    image: String,
-    place_id: String
+    image: String
 });
 
-module.exports = mongoose.model('reviews', Reviewscontent);
+module.exports = mongoose.model('places', Reviewscontent);

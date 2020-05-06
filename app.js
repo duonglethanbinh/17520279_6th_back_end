@@ -10,18 +10,21 @@ const swaggerDocument = require('./swagger.json');
 
 //Middleware
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 app.use(cors());
 
 //Import Routes
-const reviewsRoute = require('./routes/reviews');
-const contactRoute = require('./routes/contact');
+const placesRoute = require('./routes/places');
+const contactRoute = require('./routes/contacts');
+const blogsRoute = require('./routes/blogs')
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/reviews', reviewsRoute);
-app.use('/contact', contactRoute);
+app.use('/uploads', express.static('uploads'));
+app.use('/places', placesRoute);
+app.use('/blogs', blogsRoute);
+app.use('/contacts', contactRoute);
 
 
 //connect to database

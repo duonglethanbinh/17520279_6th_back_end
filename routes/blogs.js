@@ -1,54 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Reviews = require('../models/reviews');
 const Blogs = require('../models/blogs');
 
 router.get('/', async (req, res) => {
-    try {
-        const reviews = await Reviews.find();
-        res.json(reviews);
-    } catch (err) {
-        res.json({ message: err })
-    }
-})
-
-router.post('/', async (req, res) => {
-    const reviews = new Reviews(
-        {
-            name: req.body.name,
-            image: req.body.image,
-            place_id: req.body.place_id
-        }
-    );
-    try {
-        const saveReviews = await reviews.save();
-        res.json(saveReviews);
-    } catch (err) {
-        res.json({ message: err })
-    }
-})
-
-router.patch('/:updateid', async (req, res) => {
-    try {
-        const updateReviews = await Reviews.updateOne(
-            { _id: req.params.updateid },
-            {
-                $set: {
-                    name: req.body.name,
-                    image: req.body.image,
-                    place_id: req.body.place_id
-                }
-            }
-        );
-
-        res.json(updateReviews);
-    } catch (err) {
-        res.json({ message: err })
-    }
-});
-
-//reviews/blog
-router.get('/blogs', async (req, res) => {
     try {
         const blogs = await Blogs.find();
         res.json(blogs);
@@ -56,8 +10,8 @@ router.get('/blogs', async (req, res) => {
         res.json({ message: err })
     }
 })
-router.get("/blogs/:placeId", (req, res, next) => {
-    const id = req.params.placeId;
+router.get("/:blogsId", (req, res) => {
+    const id = req.params.blogsId;
     Blogs.findById(id)
         .exec()
         .then(doc => {
@@ -76,7 +30,7 @@ router.get("/blogs/:placeId", (req, res, next) => {
         });
 });
 
-router.post('/blogs', async (req, res) => {
+router.post('/', async (req, res) => {
     const blogs = new Blogs(
         {
             name: req.body.name,
@@ -92,7 +46,7 @@ router.post('/blogs', async (req, res) => {
     }
 })
 
-router.patch('/blogs/:updateid', async (req, res) => {
+router.patch('/:updateid', async (req, res) => {
     try {
         const updateBlogs = await Blogs.updateOne(
             { _id: req.params.updateid },
