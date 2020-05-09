@@ -4,15 +4,17 @@ const Blogs = require('../models/blogs');
 
 router.get('/', async (req, res) => {
     try {
-        const blogs = await Blogs.find();
+        const blogs = await Blogs.find().sort({ created: -1 });
         res.json(blogs);
     } catch (err) {
         res.json({ message: err })
     }
 })
+
 router.get("/:blogsId", (req, res) => {
     const id = req.params.blogsId;
-    Blogs.findById(id)
+    console.log(id);
+    Blogs.find({ $or: [{ place_id: id }, { name: id }] })
         .exec()
         .then(doc => {
             console.log("From database", doc);
@@ -33,6 +35,7 @@ router.get("/:blogsId", (req, res) => {
 router.post('/', async (req, res) => {
     const blogs = new Blogs(
         {
+            place_id: req.body.place_id,
             name: req.body.name,
             title: req.body.title,
             content: req.body.content
