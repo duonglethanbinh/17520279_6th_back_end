@@ -38,8 +38,8 @@
                 "tags": [
                     "/places"
                 ],
-                "summary": "Get response from reviews page",
-                "description": "Get response from reviews page",
+                "summary": "Get response from places page",
+                "description": "Get response from places page. Include: <br/><ul><li>_id</li><li>name</li><li>image</li><li>__v</li></ul>",
                 "consumes": [
                     "application/json"
                 ],
@@ -60,14 +60,14 @@
                     {
                         "name": "places",
                         "in": "body",
-                        "description": "Place that we want to create",
+                        "description": "Place that we want to create. Example: <br/><ul><li>'name': Ben Tre 2</li><li>'image': https://travellog-6th-backend.herokuapp.com/uploads/bentre2.jpg</li></ul>",
                         "schema": {
                             "$ref": "#/definitions/places"
                         }
                     }
                 ],
-                "summary": "Post to mongodb data, the get response.",
-                "description": "Post to mongodb data, the get response.",
+                "summary": "Post to mongodb atlas, then get data response.",
+                "description": "Post to mongodb atlas, then get data response.",
                 "consumes": [
                     "application/json"
                 ],
@@ -86,8 +86,8 @@
                 "tags": [
                     "/blogs"
                 ],
-                "summary": "Get response from blogs page",
-                "description": "Get response from blogs page",
+                "summary": "Get response data from blogs page",
+                "description": "Get response data from blogs page. Include: <br/><ul><li>_id</li><li>name</li><li>title</li><li>content</li><li>__v</li></ul>",
                 "consumes": [
                     "application/json"
                 ],
@@ -114,8 +114,8 @@
                         }
                     }
                 ],
-                "summary": "Post to mongodb data, the get response.",
-                "description": "Post to mongodb data, the get response.",
+                "summary": "Post to mongodb atlas, the get response.",
+                "description": "Post to mongodb atlas, the get response.<br/>In other word, add new blog<br/> Example for 'name' must be: <br/><ul><li>Ha Noi</li><li>Ho Chi Minh</li><li>Hue</li><li>Da Nang</li><li>Phong Nha</li><li>Sapa</li><li>Ben Tre</li></ul>",
                 "consumes": [
                     "application/json"
                 ],
@@ -129,13 +129,42 @@
                 }
             }
         },
+        "/blogs/{blogsID}": {
+            "get": {
+                "tags": [
+                    "/blogs"
+                ],
+                "parameters": [
+                    {
+                        "name": "blogsID",
+                        "in": "path",
+                        "description": "ID of blogs that needs to be search. Example: <ul><li>Ha Noi</li><li>Ho Chi Minh</li><li>Hue</li><li>Da Nang</li><li>Phong Nha</li><li>Sapa</li><li>Ben Tre</li></ul>",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "summary": "Search by ID from blogs page",
+                "description": "Get response from search ID blogs page<br/> Include: <br/><ul><li>_id</li><li>name</li><li>title</li><li>content</li><li>__v</li></ul>",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all search json data"
+                    }
+                }
+            }
+        },
         "/contacts": {
             "get": {
                 "tags": [
                     "/contacts"
                 ],
-                "summary": "Get response from contacts page",
-                "description": "Get response from contacts page",
+                "summary": "Get response data from contacts page",
+                "description": "Get response data from contacts page.<br/>Include: <br/><ul><li>_id</li><li>name</li><li>email</li><li>message</li><li>__v</li></ul>",
                 "consumes": [
                     "application/json"
                 ],
@@ -156,14 +185,14 @@
                     {
                         "name": "contacts",
                         "in": "body",
-                        "description": "blogs that we want to create",
+                        "description": "Add new contact",
                         "schema": {
                             "$ref": "#/definitions/contacts"
                         }
                     }
                 ],
-                "summary": "Post to mongodb data, the get response.",
-                "description": "Post to mongodb data, the get response.",
+                "summary": "Post to mongodb atlas, then get data response.",
+                "description": "Post to mongodb atlas, then get data response. <br/>In other word, add new contact",
                 "consumes": [
                     "application/json"
                 ],

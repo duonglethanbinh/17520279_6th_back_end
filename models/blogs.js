@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const Commentcontent = mongoose.Schema({
-    place_id: String,
     name: String,
     title: String,
     content: String,

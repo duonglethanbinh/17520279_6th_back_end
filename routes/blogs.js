@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Blogs = require('../models/blogs');
 
+//Get all data
 router.get('/', async (req, res) => {
     try {
         const blogs = await Blogs.find().sort({ created: -1 });
@@ -10,32 +11,26 @@ router.get('/', async (req, res) => {
         res.json({ message: err })
     }
 })
-
+//Search by ID
 router.get("/:blogsId", (req, res) => {
     const id = req.params.blogsId;
     console.log(id);
-    Blogs.find({ $or: [{ place_id: id }, { name: id }] })
+    Blogs.find({ $or: [{ name: id }] }).sort({ created: -1 })
         .exec()
         .then(doc => {
-            console.log("From database", doc);
-            if (doc) {
+            if (doc.length > 0) {
                 res.status(200).json(doc);
             } else {
-                res
-                    .status(404)
-                    .json({ message: "No valid entry found for provided ID" });
+                res.json({ message: "Not found" });
             }
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ error: err });
-        });
+        .catch(err => res.json({ message: err }));
 });
 
+//Add new document
 router.post('/', async (req, res) => {
     const blogs = new Blogs(
         {
-            place_id: req.body.place_id,
             name: req.body.name,
             title: req.body.title,
             content: req.body.content
@@ -48,11 +43,10 @@ router.post('/', async (req, res) => {
         res.json({ message: err })
     }
 })
-
+//Update document
 router.patch('/:updateid', async (req, res) => {
     try {
-        const updateBlogs = await Blogs.updateOne(
-            { _id: req.params.updateid },
+        await Blogs.updateOne({ _id: req.params.updateid },
             {
                 $set: {
                     name: req.body.name,
@@ -62,7 +56,17 @@ router.patch('/:updateid', async (req, res) => {
             }
         );
 
-        res.json(updateBlogs);
+        res.json({ message: 'blog updated' });
+    } catch (err) {
+        res.json({ message: err })
+    }
+});
+
+//Delete document
+router.delete('/:deleteid', async (req, res) => {
+    try {
+        await Blogs.deleteOne({ _id: req.params.deleteid });
+        res.json({ message: 'blog deleted' });
     } catch (err) {
         res.json({ message: err })
     }
